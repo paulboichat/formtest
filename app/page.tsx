@@ -1,8 +1,6 @@
 import { AddForm } from '@/app/add-form'
 import { DeleteForm } from '@/app/delete-form'
 
-export const runtime = 'edge'
-export const preferredRegion = 'home'
 
 export default async function Home() {
  
