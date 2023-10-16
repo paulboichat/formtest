@@ -1,13 +1,9 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { sql } from '@vercel/postgres'
 import { z } from 'zod'
 
-// CREATE TABLE todos (
-//   id SERIAL PRIMARY KEY,
-//   text TEXT NOT NULL
-// );
+
 
 export async function createTodo(prevState: any, formData: FormData) {
   const schema = z.object({
@@ -17,17 +13,8 @@ export async function createTodo(prevState: any, formData: FormData) {
     todo: formData.get('todo'),
   })
 
-  try {
-    await sql`
-    INSERT INTO todos (text)
-    VALUES (${data.todo})
-  `
-
-    revalidatePath('/')
-    return { message: `Added todo ${data.todo}` }
-  } catch (e) {
-    return { message: 'Failed to create todo' }
-  }
+  // Insert the todo into the database
+  console.log(data)
 }
 
 export async function deleteTodo(prevState: any, formData: FormData) {
@@ -40,15 +27,6 @@ export async function deleteTodo(prevState: any, formData: FormData) {
     todo: formData.get('todo'),
   })
 
-  try {
-    await sql`
-      DELETE FROM todos
-      WHERE id = ${data.id};
-    `
-
-    revalidatePath('/')
-    return { message: `Deleted todo ${data.todo}` }
-  } catch (e) {
-    return { message: 'Failed to delete todo' }
-  }
+  // delete the todo from the database
+  console.log(data)
 }
